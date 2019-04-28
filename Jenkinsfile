@@ -44,7 +44,6 @@ node ("node") {
 						deleteDir()
 						Branch.checkout(this, env.CI_PROJECT_NAME)
 						Pipeline.install(this)
-						sh script: "npm version '${env.CI_BUILD_VERSION}' --no-git-tag-version"
 					}
 					stage ("lint") {
 						sh script: "${WORKSPACE}/.deploy/lint.sh -n '${env.CI_PROJECT_NAME}' -v '${env.CI_BUILD_VERSION}' -o '${env.CI_DOCKER_ORGANIZATION}'"
