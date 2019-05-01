@@ -15,6 +15,7 @@ RUN \
 	pip install -r /setup/requirements.txt && \
 	chown -R abc:abc /app && \
 	chown -R abc:abc /data && \
+	apk delete git && \
 	rm -rf /setup && \
 	rm -rf /var/cache/apk/*
 
