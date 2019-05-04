@@ -9,6 +9,9 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 indent_size = 2
 
+[*.ps1]
+indent_style = tab
+
 [*.{yaml,yml}]
 indent_style = space
 
