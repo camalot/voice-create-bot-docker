@@ -64,8 +64,9 @@ az container create `
     --image "$DockerOrg/$($ProjectName):$Version" `
     --dns-name-label $DNS_NAME_LABEL `
     --restart-policy OnFailure `
-    --environment-variables `
+    --secure-environment-variables `
       DISCORD_BOT_TOKEN="$ENV:DISCORD_BOT_TOKEN" `
+    --environment-variables `
       VCB_DB_PATH="$ENV:VCB_DB_PATH" `
     --os-type Linux `
     --location "$AZ_LOCATION" `
