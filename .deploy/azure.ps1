@@ -2,10 +2,8 @@
 
 
 param(
-    [Parameter(Mandatory = $true)]
-    [String] $ProjectName,
-    [Parameter(Mandatory = $true)]
-    [String] $DockerOrg,
+    [String] $ProjectName = "voice-create-bot-docker",
+    [String] $DockerOrg = "camalot",
     [String] $Version = "latest"
 )
 
@@ -59,6 +57,10 @@ $STORAGE_KEY = (az storage account keys list `
 "$DockerOrg/$($ProjectName):$Version";
 
 az container create `
+		--assign-identity `
+		--memory 0.5 `
+		--cpu 0.3 `
+		--role 1000 `
     --resource-group "$AZ_RESOURCE_GROUP" `
     --name "$ProjectName" `
     --image "$DockerOrg/$($ProjectName):$Version" `
