@@ -46,7 +46,8 @@ $EXISTING_SHARE = (az storage share list | ConvertFrom-Json | Where-Object {
         $_.Name -eq "$ProjectName";
     } | Select-Object -First 1);
 if ( $null -eq $EXISTING_SHARE ) {
-    az storage share create --name "$ProjectName" | Out-Null;
+		az storage share create --name "$ProjectName" --verbose | Out-Null;
+    az storage share policy create --permissions dlrw --verbose | Out-Null;
 }
 $STORAGE_KEY = (az storage account keys list `
         --resource-group "$AZ_RESOURCE_GROUP" `
@@ -60,7 +61,6 @@ az container create `
 		--assign-identity `
 		--memory 0.5 `
 		--cpu 0.3 `
-		--role 1000 `
     --resource-group "$AZ_RESOURCE_GROUP" `
     --name "$ProjectName" `
     --image "$DockerOrg/$($ProjectName):$Version" `
@@ -72,7 +72,8 @@ az container create `
       VCB_DB_PATH="$ENV:VCB_DB_PATH" `
     --os-type Linux `
     --location "$AZ_LOCATION" `
-    --azure-file-volume-account-name $STORAGE_ACCOUNT_NAME `
-    --azure-file-volume-account-key $STORAGE_KEY `
-    --azure-file-volume-share-name "$ProjectName" `
-    --azure-file-volume-mount-path "/data/";
+		--verbose;
+    # --azure-file-volume-account-name $STORAGE_ACCOUNT_NAME `
+    # --azure-file-volume-account-key $STORAGE_KEY `
+    # --azure-file-volume-share-name "$ProjectName" `
+		# --azure-file-volume-mount-path "/data/" `
