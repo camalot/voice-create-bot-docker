@@ -2,7 +2,7 @@ FROM python:3.7.3-alpine
 
 COPY ./root/ /
 
-ARG BRANCH="develop"
+ARG BRANCH="topic/admins"
 
 ENV DISCORD_BOT_TOKEN=
 ENV VCB_DB_PATH=/data/voice.db
