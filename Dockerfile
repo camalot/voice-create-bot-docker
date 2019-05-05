@@ -6,6 +6,7 @@ ARG BRANCH="topic/admins"
 ENV VCB_BRANCH=${BRANCH}
 ENV DISCORD_BOT_TOKEN=
 ENV VCB_DB_PATH=/data/voice.db
+ENV PYTHONUNBUFFERED=0
 
 RUN \
 	apk update && \
@@ -23,4 +24,4 @@ RUN \
 VOLUME ["/data"]
 WORKDIR /app
 
-CMD ["python", "/app/voicecreate.py"]
+CMD ["python", "-u", "/app/voicecreate.py"]
