@@ -1,7 +1,7 @@
 version: '3'
 services:
   vcb:
-    image: camalot/voice-create-bot-docker:1.0.31
+    image: camalot/voice-create-bot-docker:1.0.32
     deploy:
       resources:
         limits:
