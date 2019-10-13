@@ -28,4 +28,4 @@ RUN \
 VOLUME ["/data"]
 WORKDIR /app
 
-CMD ["python", "-u", "/app/voicecreate.py"]
+CMD ["python", "-u", "/app/main.py"]
