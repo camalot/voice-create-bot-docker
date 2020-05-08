@@ -19,11 +19,11 @@ RUN \
 	mkdir -p /app /data && \
 	git clone --single-branch --branch ${VCB_BRANCH} https://github.com/camalot/VoiceCreateBot.git /app && \
 	pip install --upgrade pip && \
-	pip install -r /setup/requirements.txt && \
+	pip install -r /app/setup/requirements.txt && \
 	sed -i "s/APP_VERSION = \"1.0.0-snapshot\"/APP_VERSION = \"${APP_VERSION}\"/g" "/app/cogs/voice.py" && \
 	sed -i "s/\"version\": \"1.0.0-snapshot\"/\"version\": \"${APP_VERSION}\"/g" "/app/app.manifest" && \
 	apk del git build-base && \
-	rm -rf /setup && \
+	rm -rf /app/setup && \
 	rm -rf /var/cache/apk/*
 
 VOLUME ["/data"]
