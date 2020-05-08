@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -e;
+
 base_dir=$(dirname "$0");
 # shellcheck source=/dev/null
 source "${base_dir}/../.deploy/shared.sh";
@@ -27,10 +28,9 @@ get_opts() {
 get_opts "$@";
 
 BUILD_PROJECT="${opt_project_name:-"${APPVEYOR_PROJECT_NAME}"}";
-BUILD_VERSION="${opt_version:-"${APPVEYOR_BUILD_VERSION-:"1.0.0-snapshot"}"}";
+BUILD_VERSION="${opt_version:-"${APPVEYOR_BUILD_VERSION:-"1.0.0-snapshot"}"}";
 BUILD_ORG="${opt_docker_org-:"${DOCKER_HUB_USERNAME}"}";
-
-WORKDIR="${WORKSPACE:-"$(pwd)"}";
+WORKDIR="${WORKSPACE:-"${pwd}"}";
 
 [[ -z "${BUILD_PROJECT// }" ]] && __error "Environment variable 'CI_PROJECT_NAME' missing or empty.";
 [[ -z "${BUILD_VERSION// }" ]] && __error "Environment variable 'CI_BUILD_VERSION' missing or empty.";
@@ -39,11 +39,13 @@ WORKDIR="${WORKSPACE:-"$(pwd)"}";
 tag="${BUILD_ORG}/${BUILD_PROJECT}";
 tag_name_latest="${tag}:latest";
 tag_name_ver="${tag}:${BUILD_VERSION}";
-docker build ${opt_force}--pull \
-	--build-arg BUILD_VERSION="${BUILD_VERSION}" \
-	--build-arg PROJECT_NAME="${BUILD_PROJECT}" \
-	--tag "${tag_name_ver}" \
-	-f "${WORKDIR}/Dockerfile" .;
+
+# Docker Push
+docker login --username "${DOCKER_HUB_USERNAME}" --password-stdin <<< "${DOCKER_HUB_PASSWORD}";
+# Only push "non-snapshots" to docker hub
+[[ ! $BUILD_VERSION =~ -snapshot$ ]] && \
+	docker push "${tag_name_latest}" && \
+	docker push "${tag_name_ver}";
 
 unset BUILD_PROJECT;
 unset BUILD_VERSION;

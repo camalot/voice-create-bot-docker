@@ -1,0 +1,43 @@
+version: 1.1.{build}
+pull_requests:
+  do_not_increment_build_number: true
+skip_tags: true
+image: Ubuntu
+environment:
+  DOCKER_HUB_USERNAME:
+    secure: ZMQUwvoPezmxEusTEETtxA==
+  DOCKER_HUB_PASSWORD:
+    secure: RmJHfXkd5VjTGyI9dPaTmQ==
+install:
+- sh: >-
+    #!/usr/bin/env bash
+
+    sudo apt-get remove docker docker-engine docker.io containerd runc;
+
+    sudo apt-get update;
+
+    sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common -y;
+
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable";
+
+    sudo apt-get update;
+
+    sudo apt-get install docker-ce docker-ce-cli containerd.io -y;
+build_script:
+- sh: >-
+    #!/usr/bin/env bash
+
+
+    chmod +x ./.build/build.sh
+
+    chmod +x ./.build/deploy.sh
+
+
+    ./.build/build.sh
+deploy_script:
+- sh: >-
+    #!/usr/bin/env bash
+
+    ./.build/deploy.sh
