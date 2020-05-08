@@ -1,6 +1,9 @@
 version: 1.1.{build}
 pull_requests:
   do_not_increment_build_number: true
+branches:
+  only:
+  - develop
 skip_tags: true
 image: Ubuntu
 environment:
@@ -37,7 +40,4 @@ build_script:
 
     ./.build/build.sh
 deploy_script:
-- sh: >-
-    #!/usr/bin/env bash
-
-    ./.build/deploy.sh
+- sh: ./.build/deploy.sh

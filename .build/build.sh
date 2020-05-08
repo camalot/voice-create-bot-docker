@@ -28,7 +28,7 @@ get_opts "$@";
 
 BUILD_PROJECT="${opt_project_name:-"${APPVEYOR_PROJECT_NAME}"}";
 BUILD_VERSION="${opt_version:-"${APPVEYOR_BUILD_VERSION-:"1.0.0-snapshot"}"}";
-BUILD_ORG="${opt_docker_org-:"${DOCKER_HUB_USERNAME}"}";
+BUILD_ORG="${opt_docker_org:-"${DOCKER_HUB_USERNAME}"}";
 
 WORKDIR="${WORKSPACE:-"$(pwd)"}";
 
