@@ -26,9 +26,9 @@ get_opts() {
 
 get_opts "$@";
 
-BUILD_PROJECT="${opt_project_name:-"${CI_PROJECT_NAME:-"${APPVEYOR_PROJECT_NAME}"}"}";
+BUILD_PROJECT="${opt_project_name:-"${APPVEYOR_PROJECT_NAME}"}";
 BUILD_PUSH_REGISTRY="${DOCKER_REGISTRY}";
-BUILD_VERSION="${opt_version:-"${CI_BUILD_VERSION:-"${APPVEYOR_BUILD_VERSION-:"1.0.0-snapshot"}"}"}";
+BUILD_VERSION="${opt_version:-"${APPVEYOR_BUILD_VERSION-:"1.0.0-snapshot"}"}";
 BUILD_ORG="${opt_docker_org}";
 
 WORKDIR="${WORKSPACE:-"$(pwd)"}";
