@@ -47,6 +47,8 @@ docker login --username "${DOCKER_HUB_USERNAME}" --password-stdin <<< "${DOCKER_
 	docker push "${tag_name_latest}" && \
 	docker push "${tag_name_ver}";
 
+docker logout
+
 unset BUILD_PROJECT;
 unset BUILD_VERSION;
 unset BUILD_ORG;

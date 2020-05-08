@@ -53,12 +53,15 @@ tag_name_ver="${tag}:${BUILD_VERSION}";
 docker push "${BUILD_PUSH_REGISTRY}/${tag_name_ver}";
 
 
-# Docker Push
-docker login --username "${DOCKER_HUB_USERNAME}" --password-stdin <<< "${DOCKER_HUB_PASSWORD}";
-# Only push "non-snapshots" to docker hub
-[[ ! $BUILD_VERSION =~ -snapshot$ ]] && \
-	docker push "${tag_name_latest}" && \
-	docker push "${tag_name_ver}";
+# # Docker Push
+# docker login --username "${DOCKER_HUB_USERNAME}" --password-stdin <<< "${DOCKER_HUB_PASSWORD}";
+# # Only push "non-snapshots" to docker hub
+# [[ ! $BUILD_VERSION =~ -snapshot$ ]] && \
+# 	docker push "${tag_name_latest}" && \
+# 	docker push "${tag_name_ver}";
+
+# docker logout;
+
 
 unset BUILD_PROJECT;
 unset BUILD_PUSH_REGISTRY;

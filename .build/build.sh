@@ -39,11 +39,15 @@ WORKDIR="${WORKSPACE:-"$(pwd)"}";
 tag="${BUILD_ORG}/${BUILD_PROJECT}";
 tag_name_latest="${tag}:latest";
 tag_name_ver="${tag}:${BUILD_VERSION}";
+
 docker build ${opt_force}--pull \
 	--build-arg BUILD_VERSION="${BUILD_VERSION}" \
 	--build-arg PROJECT_NAME="${BUILD_PROJECT}" \
 	--tag "${tag_name_ver}" \
 	-f "${WORKDIR}/Dockerfile" .;
+
+[[ ! $BUILD_VERSION =~ -snapshot$ ]] && \
+	docker tag "${tag_name_ver}" "${tag_name_latest}"
 
 unset BUILD_PROJECT;
 unset BUILD_VERSION;
