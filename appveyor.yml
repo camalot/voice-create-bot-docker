@@ -42,5 +42,7 @@ deploy_script:
     #!/usr/bin/env bash
 
     chmod +x ./.build/deploy.sh;
+    chmod +x ./.build/validate.sh;
 
     ./.build/deploy.sh;
+    ./.build/validate.sh;

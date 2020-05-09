@@ -49,9 +49,6 @@ docker login --username "${DOCKER_HUB_USERNAME}" --password-stdin <<< "${DOCKER_
 
 docker logout
 
-
-./validate.sh
-
 unset BUILD_PROJECT;
 unset BUILD_VERSION;
 unset BUILD_ORG;
