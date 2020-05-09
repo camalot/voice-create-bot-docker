@@ -3,7 +3,7 @@ set -e;
 
 base_dir=$(dirname "$0");
 # shellcheck source=/dev/null
-source "${base_dir}/shared.sh";
+source "${base_dir}/../.deploy/shared.sh";
 
 get_opts() {
 	while getopts ":v:n:o" opt; do
