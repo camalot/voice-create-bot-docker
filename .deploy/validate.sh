@@ -24,10 +24,16 @@ get_opts() {
 };
 
 
-tag_exists() {
+af_tag_exists() {
 	RESULT=$(curl -u "${ARTIFACTORY_USERNAME}:${ARTIFACTORY_PASSWORD}" --insecure -s -X GET "https://${PULL_REPOSITORY}/v2/$1/tags/list?page_size=10000");
 	EXISTS=$(echo $RESULT | jq -r "[.tags | to_entries | .[] | .value == \"$2\"] | any");
 	test $EXISTS = true;
+}
+
+docker_tag_exists() {
+    TOKEN=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'${DOCKER_HUB_USERNAME}'", "password": "'${DOCKER_HUB_PASSWORD}'"}' https://hub.docker.com/v2/users/login/ | jq -r .token)
+    EXISTS=$(curl -s -H "Authorization: JWT ${TOKEN}" https://hub.docker.com/v2/repositories/$1/tags/?page_size=10000 | jq -r "[.results | .[] | .name == \"$2\"] | any")
+    test $EXISTS = true
 }
 
 [[ -z "${ARTIFACTORY_USERNAME// }" ]] && __error "Environment variable 'ARTIFACTORY_USERNAME' missing";
@@ -48,6 +54,7 @@ DOCKER_IMAGE="${DOCKER_ORG}/${INSTANCE_NAME}";
 [[ -z "${PULL_REPOSITORY// }" ]] && __error "Environment variable 'DOCKER_REGISTRY' missing or empty.";
 
 
-! tag_exists "${DOCKER_IMAGE}" "${TAG_VERSION}" && __error "Tag '${DOCKER_IMAGE}/${TAG_VERSION}' was not found";
+! af_tag_exists "${DOCKER_IMAGE}" "${TAG_VERSION}" && __error "Tag '${DOCKER_IMAGE}/${TAG_VERSION}' was not found in Artifactory";
+# ! docker_tag_exists "${DOCKER_IMAGE}" "${TAG_VERSION}" && __error "Tag '${DOCKER_IMAGE}/${TAG_VERSION}' was not found in Docker Hub";
 
 exit 0;

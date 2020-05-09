@@ -32,9 +32,9 @@ BUILD_VERSION="${opt_version:-"${APPVEYOR_BUILD_VERSION:-"1.0.0-snapshot"}"}";
 BUILD_ORG="${opt_docker_org:-"${DOCKER_HUB_USERNAME}"}";
 WORKDIR="${WORKSPACE:-"${pwd}"}";
 
-[[ -z "${BUILD_PROJECT// }" ]] && __error "Environment variable 'CI_PROJECT_NAME' missing or empty.";
-[[ -z "${BUILD_VERSION// }" ]] && __error "Environment variable 'CI_BUILD_VERSION' missing or empty.";
-[[ -z "${BUILD_ORG// }" ]] && __error "Argument '-o' (organization) is missing or empty.";
+[[ -z "${BUILD_PROJECT// }" ]] && __error "Environment variable 'APPVEYOR_PROJECT_NAME' missing or empty.";
+[[ -z "${BUILD_VERSION// }" ]] && __error "Environment variable 'APPVEYOR_BUILD_VERSION' missing or empty.";
+[[ -z "${BUILD_ORG// }" ]] && __error "Environment variable 'DOCKER_HUB_USERNAME' missing or empty.";
 
 tag="${BUILD_ORG}/${BUILD_PROJECT}";
 tag_name_latest="${tag}:latest";

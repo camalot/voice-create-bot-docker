@@ -35,9 +35,19 @@ build_script:
 
     chmod +x ./.build/build.sh
 
-    chmod +x ./.build/deploy.sh
-
 
     ./.build/build.sh
+test_script:
+- sh: >-
+    #!/usr/bin/env bash
+
+    chmod +x ./.build/validate.sh;
+
+    ./.build/validate.sh;
 deploy_script:
-- sh: ./.build/deploy.sh
+- sh: >-
+    #!/usr/bin/env bash
+
+    chmod +x ./.build/deploy.sh;
+
+    ./.build/deploy.sh;

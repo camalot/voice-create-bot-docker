@@ -1,5 +1,7 @@
 
 
+[![Build status](https://ci.appveyor.com/api/projects/status/4i8e8r17to5rbi7l?svg=true)](https://ci.appveyor.com/project/camalot/voice-create-bot-docker)
+
 
 # Deploy to Azure
 
