@@ -15,7 +15,7 @@ node ("node") {
 	def slack_notify_channel = null
 
 	def MAJOR_VERSION = 1
-	def MINOR_VERSION = 0
+	def MINOR_VERSION = 1
 
 	env.PROJECT_MAJOR_VERSION = MAJOR_VERSION
 	env.PROJECT_MINOR_VERSION = MINOR_VERSION
