@@ -65,6 +65,8 @@ node ("node") {
 
 							Branch.publish_to_master(this)
 							Pipeline.publish_buildInfo(this)
+							//  def accountName, def projectSlug, def branch = "develop", def env = []
+							Appveyor.startBuild(this, Accounts.GIT_ORGANIZATION, env.CI_PROJECT_NAME, "develop", [])
 						}
 					}
 				}
