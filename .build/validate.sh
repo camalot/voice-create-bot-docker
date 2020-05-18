@@ -44,6 +44,8 @@ DOCKER_IMAGE="${DOCKER_ORG}/${INSTANCE_NAME}";
 [[ -z "${TAG_VERSION// }" ]] && __error "Environment variable 'CI_BUILD_VERSION' missing or empty.";
 [[ -z "${INSTANCE_NAME// }" ]] && __error "Environment variable 'APPVEYOR_PROJECT_NAME' missing or empty.";
 
+sleep 5;
+
 ! docker_tag_exists "${DOCKER_IMAGE}" "${TAG_VERSION}" && __error "Tag '${DOCKER_IMAGE}/${TAG_VERSION}' was not found in Docker Hub";
 
 exit 0;
