@@ -40,8 +40,6 @@ tag="${BUILD_ORG}/${BUILD_PROJECT}";
 tag_name_latest="${tag}:latest";
 tag_name_ver="${tag}:${BUILD_VERSION}";
 
-systemctl start docker;
-
 __info "Running Dockerfile lint";
 	docker run --rm \
 		lukasmartinelli/hadolint < "${WORKDIR}/Dockerfile";
