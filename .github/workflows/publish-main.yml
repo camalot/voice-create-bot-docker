@@ -17,13 +17,13 @@ jobs:
       with:
         release_strategy: none
         tag_format: '%major%.%minor%.%patch%'
-        release_branch: master
+        release_branch: develop
     - name: semver_release
       uses: K-Phoen/semver-release-action@master
       with:
         release_strategy: release
         tag_format: 'v%major%.%minor%.%patch%'
-        release_branch: master
+        release_branch: develop
   docker:
     runs-on: ubuntu-latest
     needs: version
@@ -45,7 +45,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: camalot/voice-create-bot-docker:latest
+        tags: camalot/voice-create-bot-docker:latest,camalot/voice-create-bot-docker:${{ needs.version.outputs.app_version }}
   merge:
     runs-on: ubuntu-latest
     needs: docker
