@@ -1,0 +1,1 @@
+- Updated the channel to not specifically set the `view_channel` permission. It will now inherit from the parent category.

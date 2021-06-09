@@ -56,6 +56,7 @@ jobs:
     - docker
     - version
     steps:
+
     - uses: actions/checkout@master
     - name: Merge develop -> master
       uses: devmasx/merge-branch@v1.3.1
@@ -71,3 +72,11 @@ jobs:
         version: ${{ needs.version.outputs.tag }}
         message: ''
         token: ${{ github.token }}
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      with:
+        body_path: CHANGELOG.txt
+        name: "${{ needs.version.outputs.app_version }}"
