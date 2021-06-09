@@ -9,6 +9,8 @@ jobs:
     outputs:
       app_version: ${{ steps.semver.outputs.tag }}
       tag: ${{ steps.semver_release.outputs.tag }}
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
     steps:
     - name: semver
       uses: K-Phoen/semver-release-action@master
@@ -16,16 +18,12 @@ jobs:
         release_strategy: none
         tag_format: '%major%.%minor%.%patch%'
         release_branch: master
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
     - name: semver_release
       uses: K-Phoen/semver-release-action@master
       with:
         release_strategy: release
         tag_format: 'v%major%.%minor%.%patch%'
         release_branch: master
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
   docker:
     runs-on: ubuntu-latest
     needs: version
