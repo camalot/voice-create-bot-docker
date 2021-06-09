@@ -32,17 +32,17 @@ build_script:
 - sh: >-
     #!/usr/bin/env bash
 
-    chmod +x ./.build/build.sh
+    chmod +x ./.appveyor/build.sh
 
-    ./.build/build.sh
+    ./.appveyor/build.sh
 deploy_script:
 - sh: >-
     #!/usr/bin/env bash
 
-    chmod +x ./.build/deploy.sh;
+    chmod +x ./.appveyor/deploy.sh;
 
-    chmod +x ./.build/validate.sh;
+    chmod +x ./.appveyor/validate.sh;
 
-    ./.build/deploy.sh;
+    ./.appveyor/deploy.sh;
 
-    ./.build/validate.sh;
+    ./.appveyor/validate.sh;
