@@ -25,7 +25,7 @@ jobs:
       uses: "WyriHaximus/github-action-next-semvers@v1"
       with:
         version: ${{ steps.previoustag.outputs.tag }}
-    - run: echo "app_version ${{ jobs.version.outputs.app_version }}"
+    - run: echo "app_version ${{ steps.semvers.outputs.patch }}"
   # xversion:
   #   runs-on: ubuntu-latest
   #   outputs:
