@@ -1,0 +1,39 @@
+version: '3.7'
+services:
+  vcb:
+    hostname: voice_create_bot
+    container_name: voice_create_bot
+    image: camalot/voice-create-bot-docker:1.1.127
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 64M
+        reservations:
+          cpus: '0.25'
+          memory: 32M
+    network_mode: "host"
+    restart: unless-stopped
+    environment:
+      VCB_DISCORD_CLIENT_ID: <FILL IN CLIENT_ID>
+      DISCORD_BOT_TOKEN: <FILL IN DISCORD BOT TOKEN>
+      BOT_OWNER: <FILL IN YOUR DISCORD USER ID>
+      VCB_DB_PATH: /data/voice.db
+      VCB_MONGODB_URL: "mongodb://mdbroot:toorbdm@mongodb:27017/admin"
+      LOG_LEVEL: INFO
+      DB_PROVIDER: MONGODB
+  mongodb:
+    user: 1000:1000
+    hostname: mongodb
+    container_name: mongodb
+    image: mongo:4.2
+    ports:
+    - 27017:27017
+    # volumes:
+    #   - /mnt/container_data/mongodb/data/db:/data/db
+    #   - /mnt/container_data/mongodb/data/configdb:/data/configdb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mdbroot
+      MONGO_INITDB_ROOT_PASSWORD: toorbdm
+      TZ: 'America/Chicago'
+    restart: unless-stopped
