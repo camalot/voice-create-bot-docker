@@ -22,6 +22,7 @@ services:
       VCB_MONGODB_URL: "mongodb://mdbroot:toorbdm@mongodb:27017/admin"
       LOG_LEVEL: INFO
       DB_PROVIDER: MONGODB
+      LANGUAGE: en-us
   mongodb:
     user: 1000:1000
     hostname: mongodb
