@@ -12,7 +12,7 @@ jobs:
     env:
       GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     steps:
-    - uses: actions/checkout@v2.4.0
+    - uses: actions/checkout@v3.0.1
       with:
         fetch-depth: 0
     # Get the current tag
@@ -78,7 +78,7 @@ jobs:
     - version
     steps:
 
-    - uses: actions/checkout@v2.4.0
+    - uses: actions/checkout@v3.0.1
     - name: Merge develop -> master
       uses: devmasx/merge-branch@1.4.0
       with:
